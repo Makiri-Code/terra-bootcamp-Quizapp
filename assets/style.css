@@ -1,0 +1,103 @@
+body{
+    margin: 0;
+}
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(5 152 98);
+    color: rgb(255 255 255);
+    padding: 10px 20px;
+    font-size: 1.3rem;
+    height: 50px;
+}
+main{
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 50px 80px;
+}
+.container{
+    width: auto;
+    height: fit-content;
+    border: 1px solid grey;
+    padding: 20px 30px;
+    border-radius: 18px;
+    font-size: 1.2rem;
+    font-stretch: extra-expanded;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2)
+}
+#question-container {
+
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+
+}
+.start-button{
+    background-color: rgb(5 152 98);
+    color: rgb(255 255 255);
+    border-radius: 5px;
+    border: none;
+    padding: 10px 10px;
+    cursor: pointer;
+}
+input{
+    padding: 5px 0;
+    width: 100px;
+}
+#start-button:hover{
+    color: rgb(0, 0, 0);
+    background-color: rgba(5, 152, 98, 0.5);
+}
+.option-btn {
+    background-color: rgb(5 152 98);
+    width: 100%;
+    height: 1.8rem;
+    text-align: left;
+    color: rgb(255 255 255);
+    margin: 3px 0px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 5px;
+}
+
+.option-btn:hover{
+    color: rgb(0, 0, 0);
+    background-color: rgba(5, 152, 98, 0.2);
+}
+
+.option-btn:disabled{
+    background-color: rgba(5, 152, 98, 0.2);
+    cursor: not-allowed;
+}
+
+#next{
+    text-decoration: underline;
+    font-size: 1.2rem;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+#next:hover{
+    color: rgb(5 152 98);
+}
+#answer{
+    font-size: 1.2rem;
+    border-top: 1px solid grey;
+    margin-top: 10px;
+    width: 100%;
+}
+.fa-solid{
+    margin-left: 4px;
+    font-size: 1.2rem;
+}
+
+
+@media screen and (max-width : 100px){
+    .container{
+
+    }
+}
