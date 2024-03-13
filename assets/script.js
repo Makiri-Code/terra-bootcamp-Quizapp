@@ -136,6 +136,7 @@ const checkAnswerOption1 = () => {
   option4.setAttribute('disabled', 'true');
   if(option1.textContent === answer){
     quizAnswer.textContent = 'Correct'
+    changeQuestion();
   } else {
     quizAnswer.textContent = 'Incorrect'
   }
@@ -148,6 +149,7 @@ const checkAnswerOption2 = () => {
   option4.setAttribute('disabled', 'true');
   if(option2.textContent === answer){
     quizAnswer.textContent = 'Correct'
+    changeQuestion();
   } else {
     quizAnswer.textContent = 'Incorrect'
   }
@@ -160,6 +162,7 @@ const checkAnswerOption3 = () => {
   option4.setAttribute('disabled', 'true');
   if(option3.textContent === answer){
     quizAnswer.textContent = 'Correct'
+    changeQuestion();
   } else {
     quizAnswer.textContent = 'Incorrect'
   }
@@ -172,6 +175,7 @@ const checkAnswerOption4 = () => {
   option3.setAttribute('disabled', 'true');
   if(option4.textContent === answer){
     quizAnswer.textContent = 'Correct'
+    changeQuestion();
   } else {
     quizAnswer.textContent = 'Incorrect'
   }
