@@ -14,7 +14,7 @@
 
 <body>
     <header>
-        <a id=leaderboard>View Highscores <i class="fas fa-hand-point-left fa-lg"></i>
+        <a id=leaderboard>View Highscores <i class="fas fa-hand-point-left fa-lg" id="highscore-link"></i>
         </i></a> 
         <span>Time: <span id="timer"></span></span>
     </header>
@@ -39,9 +39,18 @@
             <p>Your final score is <span id="result"></span></p>
             <span>
                 Enter initials 
-                <input type="text">
+                <input type="text" id="input">
                 <button class="start-button" id="Submit-result">Submit</button>
             </span>
+        </div>
+        <div class="container" id="Highscores-container">
+            <h2>Highscores</h2>
+            <span id="no-highscore"></span>
+            <ol id="score-list">
+                
+            </ol>
+            <button class="start-button" id="go-back">Go Back</button>
+            <button class="start-button" id="clear-highscores">Clear Highscores</button>
         </div>
     </main>
     <script src="assets/script.js"></script>

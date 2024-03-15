@@ -52,10 +52,55 @@ const quizAnswer = document.getElementById('answer');
 const nextQuestion = document.getElementById('next');
 const result = document.getElementById('result');
 const scoreContainer = document.getElementById('score');
+const initialInput = document.getElementById('input');
+const submitResult = document.getElementById('Submit-result')
+const highScoresContainer = document.getElementById('Highscores-container');
+const scoreList = document.getElementById('score-list');
+const goBackBtn = document.getElementById('go-back');
+const clearHighScores = document.getElementById('clear-highscores');
+const noHighScore = document.getElementById('no-highscore');
+const highscoreLink = document.getElementById('leaderboard');
 
 let questionNum = 0;
 let seconds = 50;
 let score = 0; 
+
+const setInitialsOfPlayers = () => {
+ initials = initialInput.value
+}
+initialInput.addEventListener('change', setInitialsOfPlayers);
+
+const displayHighScore = () => {
+  if(initialInput.value.length === 0){
+    noHighScore.textContent = 'No Highscores yet, go back to quiz'
+  } else{
+    noHighScore.hidden= 'true';
+  }
+  startContainer.style.display = 'none';
+  scoreContainer.style.display = 'none';
+  highScoresContainer.style.display = 'block'
+}
+
+highscoreLink.addEventListener('click', displayHighScore);
+
+const goBackBtnHandler = () => {
+  startContainer.style.display = 'block';
+  highScoresContainer.style.display = 'none'
+}
+goBackBtn.addEventListener('click', goBackBtnHandler);
+
+const submitInitialsHandler = () => { 
+  const newPlayers = {
+    initials: initials,
+    scores: score
+  }
+  const highScoreList = document.createElement('li');
+  highScoreList.textContent = `${newPlayers.initials} - ${newPlayers.scores}`;
+  scoreList.appendChild(highScoreList);
+  displayHighScore()
+}
+
+submitResult.addEventListener('click', submitInitialsHandler)
 // Countdown timer 
 const startCountDown = (seconds) => {
   const interval = setInterval(() => {
@@ -91,14 +136,14 @@ const changeQuestion = () => {
     option4.removeAttribute('disabled');
     displayQuestion();
   }
- 
-
   quizAnswer.hidden = true
 }
+
 // hide quiz-container and scoresheet div onLoad
 const hideQuestion = () => {
   questionContainer.style.display = 'none';
   scoreContainer.style.display = 'none';
+  highScoresContainer.style.display = 'none'
 }
 
 hideQuestion()
@@ -110,7 +155,6 @@ const scoreSheet = () => {
     score += 20;
     result.textContent = score
   }
-    
 }
 const displayScoreSheet = () => {
   scoreContainer.style.display = 'block';
@@ -128,64 +172,51 @@ const displayQuestion = () => {
   option4.textContent = options[3];
 
 console.log(getQuestion);
-
-const checkAnswerOption1 = () => {
-  quizAnswer.hidden = false
-  option2.setAttribute('disabled', 'true');
-  option3.setAttribute('disabled', 'true');
-  option4.setAttribute('disabled', 'true');
-  if(option1.textContent === answer){
+// Set other buttons disabled upon click
+const setDisabledAttributes = (a, b, c) => {
+  quizAnswer.hidden = false;
+  a.setAttribute('disabled', 'true');
+  b.setAttribute('disabled', 'true');
+  c.setAttribute('disabled', 'true');
+  scoreSheet();
+}
+// Check if answer is correct or incorrect
+const checkAnswerOption = (option) => {
+  if(option.textContent === answer){
     quizAnswer.textContent = 'Correct'
-    changeQuestion();
+    setTimeout(changeQuestion, 2000)
   } else {
     quizAnswer.textContent = 'Incorrect'
   }
-  scoreSheet();
+}
+// make other option buttons disabled after click event and display answer
+const checkAnswerOption1 = () => {
+  setDisabledAttributes(option2, option3, option4)
+  checkAnswerOption(option1);
 }
 const checkAnswerOption2 = () => {
-  quizAnswer.hidden = false;
-  option1.setAttribute('disabled', 'true');
-  option3.setAttribute('disabled', 'true');
-  option4.setAttribute('disabled', 'true');
-  if(option2.textContent === answer){
-    quizAnswer.textContent = 'Correct'
-    changeQuestion();
-  } else {
-    quizAnswer.textContent = 'Incorrect'
-  }
-  scoreSheet();
+  setDisabledAttributes(option1, option3, option4)
+  checkAnswerOption(option2)
 }
 const checkAnswerOption3 = () => {
-  quizAnswer.hidden = false;
-  option1.setAttribute('disabled', 'true');
-  option2.setAttribute('disabled', 'true');
-  option4.setAttribute('disabled', 'true');
-  if(option3.textContent === answer){
-    quizAnswer.textContent = 'Correct'
-    changeQuestion();
-  } else {
-    quizAnswer.textContent = 'Incorrect'
-  }
-  scoreSheet();
+  setDisabledAttributes(option1, option2, option4)
+  checkAnswerOption(option3);
 }
 const checkAnswerOption4 = () => {
-  quizAnswer.hidden = false;
-  option1.setAttribute('disabled', 'true');
-  option2.setAttribute('disabled', 'true');
-  option3.setAttribute('disabled', 'true');
-  if(option4.textContent === answer){
-    quizAnswer.textContent = 'Correct'
-    changeQuestion();
-  } else {
-    quizAnswer.textContent = 'Incorrect'
-  }
-  scoreSheet();
+  setDisabledAttributes(option1, option2, option3)
+  checkAnswerOption(option4);
 }
-option1.addEventListener('click', checkAnswerOption1);
+
+option1.addEventListener('click', checkAnswerOption1)
 option2.addEventListener('click', checkAnswerOption2)
 option3.addEventListener('click', checkAnswerOption3)
 option4.addEventListener('click', checkAnswerOption4)
 };
 
 
-nextQuestion.addEventListener('click', changeQuestion)
+
+
+
+
+
+nextQuestion.addEventListener('click', changeQuestion);
