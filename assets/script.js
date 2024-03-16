@@ -64,7 +64,7 @@ const highscoreLink = document.getElementById('leaderboard');
 let questionNum = 0;
 let seconds = 50;
 let score = 0; 
-
+let time = seconds - 10
 const setInitialsOfPlayers = () => {
  initials = initialInput.value
 }
@@ -78,12 +78,20 @@ const displayHighScore = () => {
   }
   startContainer.style.display = 'none';
   scoreContainer.style.display = 'none';
-  highScoresContainer.style.display = 'block'
+  highScoresContainer.style.display = 'block';
 }
 
 highscoreLink.addEventListener('click', displayHighScore);
 
 const goBackBtnHandler = () => {
+  if(questionNum === 5){
+    timer.textContent = ''
+    quizAnswer.textContent = '';
+    option1.removeAttribute('disabled');
+    option2.removeAttribute('disabled');
+    option3.removeAttribute('disabled');
+    option4.removeAttribute('disabled');
+  }
   startContainer.style.display = 'block';
   highScoresContainer.style.display = 'none'
 }
@@ -104,21 +112,30 @@ submitResult.addEventListener('click', submitInitialsHandler)
 // Countdown timer 
 const startCountDown = (seconds) => {
   const interval = setInterval(() => {
-    seconds --
-    timer.textContent = seconds
-    if (seconds <= 0 ){
+    if (seconds === 0 || questionNum === 5 ){
       clearInterval(interval);
-      displayScoreSheet()
-    } 
+      displayScoreSheet();
+    } else if (quizAnswer.textContent === 'Incorrect'){
+      seconds = time
+      time --
+      timer.textContent = seconds
+    } else {
+      seconds --
+      timer.textContent = seconds
+    }
   }, 1000)
 };
 
 // To start quiz
 const startQuizHandler = () => {
-  startCountDown(seconds)
-  displayQuestion()
-  startContainer.style.display = 'none';
-  questionContainer.style.display = 'flex';
+  if(questionNum === 5){
+    questionNum = 0
+    console.log('hi');
+  }
+    startCountDown(seconds)
+    displayQuestion()
+    startContainer.style.display = 'none';
+    questionContainer.style.display = 'flex';
 }
 
 // Start quiz button
@@ -129,7 +146,7 @@ const changeQuestion = () => {
   if(questionNum === 5){
     result.textContent = score
     displayScoreSheet();
-  }else {
+  } else {
     option1.removeAttribute('disabled');
     option2.removeAttribute('disabled');
     option3.removeAttribute('disabled');
@@ -137,6 +154,7 @@ const changeQuestion = () => {
     displayQuestion();
   }
   quizAnswer.hidden = true
+  
 }
 
 // hide quiz-container and scoresheet div onLoad
@@ -150,7 +168,6 @@ hideQuestion()
 
 //  score sheet result calculation
 const scoreSheet = () => {
-
   if( quizAnswer.textContent === 'Correct'){
     score += 20;
     result.textContent = score
@@ -171,7 +188,6 @@ const displayQuestion = () => {
   option3.textContent = options[2];
   option4.textContent = options[3];
 
-console.log(getQuestion);
 // Set other buttons disabled upon click
 const setDisabledAttributes = (a, b, c) => {
   quizAnswer.hidden = false;
@@ -212,11 +228,4 @@ option2.addEventListener('click', checkAnswerOption2)
 option3.addEventListener('click', checkAnswerOption3)
 option4.addEventListener('click', checkAnswerOption4)
 };
-
-
-
-
-
-
-
 nextQuestion.addEventListener('click', changeQuestion);
